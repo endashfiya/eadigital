@@ -83,9 +83,16 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .declaration-wrap {
-      margin-top: 2rem;
-    }
+    .declaration-wrap { margin-top: 2rem; }
+    .cookie-section { margin-bottom: 2.5rem; }
+    .cookie-section h2 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: var(--ink); letter-spacing: -0.5px; margin-bottom: 0.75rem; }
+    .cookie-section p { font-size: 14px; color: var(--muted); line-height: 1.75; font-weight: 300; margin-bottom: 0.75rem; }
+    .cookie-section a { color: var(--blue-strong); }
+    .cookie-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 0.5rem; }
+    .cookie-table th { text-align: left; font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue-strong); padding: 10px 14px; background: var(--blue-lightest); border: 1px solid var(--border); }
+    .cookie-table td { padding: 10px 14px; border: 1px solid var(--border); color: var(--muted); font-weight: 300; line-height: 1.6; vertical-align: top; }
+    .cookie-table tr:nth-child(even) td { background: #fafcff; }
+    @media (max-width: 600px) { .cookie-table { font-size: 12px; } .cookie-table th, .cookie-table td { padding: 8px 10px; } }
 
     footer {
       padding: 2rem 5rem;
@@ -124,8 +131,69 @@
       This website uses cookies to ensure you get the best experience. Below you will find a full declaration of the cookies used on eadigital.se, including their purpose and duration. You can update your consent preferences at any time.
     </p>
     <div class="declaration-wrap">
-      <!-- Cookiebot Declaration -->
-      <script id="CookieDeclaration" src="https://consent.cookiebot.com/f25ece75-b707-4fa5-9a0b-e76064bd5da9/cd.js" type="text/javascript" async></script>
+
+      <div class="cookie-section">
+        <h2>What are cookies?</h2>
+        <p>Cookies are small text files stored on your device when you visit a website. They help the site remember your preferences and understand how you use it.</p>
+      </div>
+
+      <div class="cookie-section">
+        <h2>How we use cookies</h2>
+        <p>EA Digital uses cookies solely for analytics purposes — to understand how visitors find and use the site so we can improve it. We do not use cookies for advertising or to sell your data.</p>
+      </div>
+
+      <div class="cookie-section">
+        <h2>Cookies we use</h2>
+        <table class="cookie-table">
+          <thead>
+            <tr>
+              <th>Cookie</th>
+              <th>Provider</th>
+              <th>Purpose</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>_ga</td>
+              <td>Google Analytics</td>
+              <td>Distinguishes unique users by assigning a randomly generated number as a client identifier</td>
+              <td>2 years</td>
+            </tr>
+            <tr>
+              <td>_ga_*</td>
+              <td>Google Analytics</td>
+              <td>Used to persist session state</td>
+              <td>2 years</td>
+            </tr>
+            <tr>
+              <td>_gtm</td>
+              <td>Google Tag Manager</td>
+              <td>Used to load and manage analytics tags on the site</td>
+              <td>Session</td>
+            </tr>
+            <tr>
+              <td>CookieConsent</td>
+              <td>Cookiebot</td>
+              <td>Stores your cookie consent preferences</td>
+              <td>1 year</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cookie-section">
+        <h2>Your choices</h2>
+        <p>When you first visit eadigital.se, you will be asked to consent to the use of cookies. You can withdraw or change your consent at any time by clicking the cookie icon at the bottom of the page.</p>
+        <p>You can also control cookies through your browser settings. Note that disabling cookies may affect the functionality of some websites.</p>
+      </div>
+
+      <div class="cookie-section">
+        <h2>Contact</h2>
+        <p>If you have any questions about this cookie policy, please contact us at <a href="mailto:hello@eadigital.se">hello@eadigital.se</a>.</p>
+        <p>Last updated: April 2026</p>
+      </div>
+
     </div>
   </div>
 
