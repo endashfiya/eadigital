@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EA Digital — Online Marketing & Digital Project Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue-lightest: #E6F1FB;
+      --blue-light: #B5D4F4;
+      --blue-mid: #378ADD;
+      --blue-strong: #185FA5;
+      --blue-deep: #0C447C;
+      --blue-darkest: #042C53;
+      --white: #ffffff;
+      --ink: #042C53;
+      --muted: #5a7a99;
+      --border: rgba(24,95,165,0.12);
+      --border-strong: rgba(24,95,165,0.25);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5rem; height: 64px;
+      background: rgba(255,255,255,0.94); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--ink); text-decoration: none; letter-spacing: -0.3px; }
+    .nav-logo span { color: var(--blue-mid); }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 400; color: var(--muted); text-decoration: none; letter-spacing: 0.2px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue-strong); }
+    .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: all 0.2s; }
+    .mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 99; flex-direction: column; padding: 1rem 1.5rem 1.5rem; gap: 0; }
+    .mobile-menu a { font-size: 16px; font-weight: 400; color: var(--ink); text-decoration: none; padding: 0.9rem 0; border-bottom: 1px solid var(--border); }
+    .mobile-menu a:last-child { border-bottom: none; color: var(--blue-strong); font-weight: 500; margin-top: 0.5rem; }
+    .mobile-menu.open { display: flex; }
+    @media (max-width: 768px) { .nav-burger { display: flex; } }
+    .nav-cta { font-size: 13px !important; font-weight: 500 !important; padding: 8px 22px; border-radius: 100px; background: var(--blue-strong); color: var(--white) !important; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .nav-cta:hover { background: var(--blue-deep) !important; transform: translateY(-1px); color: var(--white) !important; }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr auto; align-items: center; gap: 2rem 2rem; padding: 120px 5rem 80px; background: var(--blue-lightest); position: relative; overflow: hidden; }
+    .hero-content { display: flex; flex-direction: column; grid-column: 1; grid-row: 1; }
+    .hero-visual { display: flex; align-items: center; justify-content: flex-start; grid-column: 2; grid-row: 1; padding-left: 2rem; }
+    .hero-svg-wrap { width: 480px; height: 480px; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 80px rgba(12,68,124,0.18); opacity: 0; animation: fadeUp 0.8s 0.7s forwards; flex-shrink: 0; }
+    .hero-svg-wrap svg { width: 100%; height: 100%; display: block; }
+    .hero::before { content: ''; position: absolute; top: -120px; right: -80px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(55,138,221,0.08) 0%, transparent 70%); pointer-events: none; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 1.8px; text-transform: uppercase; color: var(--blue-strong); margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.6s 0.1s forwards; }
+    .hero-tag::before { content: ''; width: 28px; height: 1.5px; background: var(--blue-mid); display: block; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px,7vw,88px); font-weight: 600; line-height: 1.05; letter-spacing: -2px; color: var(--ink); max-width: 780px; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.7s 0.2s forwards; }
+    .hero h1 em { font-style: italic; color: var(--blue-strong); }
+    .hero-sub { font-size: 16px; font-weight: 300; color: var(--muted); line-height: 1.8; max-width: 480px; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.7s 0.35s forwards; }
+    .hero-actions { display: flex; gap: 14px; align-items: center; margin-bottom: 3rem; opacity: 0; animation: fadeUp 0.7s 0.5s forwards; }
+    .btn-primary { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 12px 28px; border-radius: 100px; background: var(--blue-strong); color: var(--white); text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--blue-deep); transform: translateY(-1px); }
+    .btn-ghost { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 400; padding: 12px 28px; border-radius: 100px; background: transparent; color: var(--blue-strong); text-decoration: none; border: 1px solid var(--border-strong); cursor: pointer; transition: background 0.2s, transform 0.15s; display: inline-block; }
+    .btn-ghost:hover { background: rgba(24,95,165,0.06); transform: translateY(-1px); }
+    .hero-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; padding-top: 2.5rem; border-top: 1px solid var(--border); opacity: 0; animation: fadeUp 0.7s 0.65s forwards; grid-column: 1 / -1; grid-row: 2; }
+    .hero-stat-item { padding-right: 2rem; border-right: 1px solid var(--border); }
+    .hero-stat-item:last-child { border-right: none; padding-right: 0; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; color: var(--ink); line-height: 1; margin-bottom: 4px; }
+    .stat-num span { color: var(--blue-mid); }
+    .stat-label { font-size: 12px; color: var(--muted); font-weight: 400; letter-spacing: 0.2px; }
+
+    /* SHARED */
+    section { padding: 6rem 5rem; }
+    .section-tag { font-size: 11px; font-weight: 500; letter-spacing: 1.8px; text-transform: uppercase; color: var(--blue-strong); display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+    .section-tag::before { content: ''; width: 20px; height: 1.5px; background: var(--blue-mid); display: block; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px,4vw,48px); font-weight: 600; line-height: 1.1; letter-spacing: -1px; color: var(--ink); margin-bottom: 3rem; max-width: 560px; }
+
+    /* SERVICES */
+    .services { background: var(--white); }
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .service-card { background: var(--white); cursor: pointer; transition: background 0.2s; }
+    .service-card:hover, .service-card.open { background: var(--blue-lightest); }
+    .service-header { padding: 2rem; }
+    .service-num { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600; color: var(--blue-mid); letter-spacing: 1px; margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+    .service-toggle { width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--border-strong); display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--blue-strong); transition: transform 0.3s, background 0.2s; flex-shrink: 0; line-height: 1; }
+    .service-card.open .service-toggle { transform: rotate(45deg); background: var(--blue-strong); color: var(--white); border-color: var(--blue-strong); }
+    .service-header h3 { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; line-height: 1.3; }
+    .service-header p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+    .service-expand { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; padding: 0 2rem; }
+    .service-card.open .service-expand { max-height: 500px; padding: 0 2rem 1.75rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+    .service-expand ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .service-expand ul li { font-size: 13px; color: var(--blue-deep); font-weight: 400; line-height: 1.5; display: flex; align-items: flex-start; gap: 8px; }
+    .service-expand ul li::before { content: '›'; color: var(--blue-mid); flex-shrink: 0; font-size: 14px; margin-top: 0; }
+
+    /* CASE STUDIES CAROUSEL */
+    .work { background: var(--blue-lightest); }
+    .carousel-wrapper { position: relative; }
+    .carousel-track-outer { overflow: hidden; border-radius: 16px; }
+    .carousel-track { display: flex; gap: 20px; transition: transform 0.45s cubic-bezier(0.4,0,0.2,1); will-change: transform; }
+    .case-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); padding: 2.5rem; flex: 0 0 100%; min-width: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .case-tag { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue-strong); background: var(--blue-lightest); padding: 4px 12px; border-radius: 100px; display: inline-block; border: 1px solid var(--border-strong); align-self: flex-start; grid-column: 1 / -1; }
+    .case-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: var(--ink); line-height: 1.2; letter-spacing: -0.5px; grid-column: 1 / -1; }
+    .case-blocks { display: flex; flex-direction: column; gap: 1.25rem; }
+    .case-block h4 { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue-mid); margin-bottom: 5px; }
+    .case-block p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+    .case-outcome { padding: 1.25rem; background: var(--blue-lightest); border-radius: 10px; border: 1px solid var(--border-strong); align-self: start; }
+    .case-outcome h4 { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue-strong); margin-bottom: 6px; }
+    .case-outcome p { font-size: 13px; color: var(--blue-deep); font-weight: 400; line-height: 1.65; }
+    .carousel-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem; }
+    .carousel-dots { display: flex; gap: 6px; align-items: center; }
+    .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border-strong); transition: background 0.2s, width 0.2s; cursor: pointer; border: none; padding: 0; }
+    .carousel-dot.active { width: 20px; border-radius: 3px; background: var(--blue-strong); }
+    .carousel-btns { display: flex; gap: 8px; }
+    .carousel-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border-strong); background: var(--white); color: var(--blue-strong); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s; }
+    .carousel-btn:hover { background: var(--blue-strong); color: var(--white); border-color: var(--blue-strong); }
+    .carousel-btn:disabled { opacity: 0.3; cursor: default; }
+    .carousel-btn:disabled:hover { background: var(--white); color: var(--blue-strong); border-color: var(--border-strong); }
+
+    /* ABOUT */
+    .about { background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; position: relative; overflow: hidden; }
+    .about-bg { position: absolute; inset: -80px; opacity: 0.06; pointer-events: none; display: flex; align-items: center; justify-content: center; }
+    .about-bg svg { width: 100%; height: 100%; }
+    .about-visual { position: relative; display: flex; align-items: center; justify-content: center; z-index: 1; }
+    .about-ring { position: absolute; width: 340px; height: 340px; border-radius: 50%; border: 1px dashed var(--border-strong); animation: spin 20s linear infinite; }
+    .about-dot { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 8px; height: 8px; border-radius: 50%; background: var(--blue-mid); }
+    .about-circle { width: 280px; height: 280px; border-radius: 50%; background: var(--blue-lightest); border: 1px solid var(--border-strong); display: flex; align-items: center; justify-content: center; position: relative; }
+    .about-initials { font-family: 'Cormorant Garamond', serif; font-size: 72px; font-weight: 600; color: var(--blue-strong); letter-spacing: -2px; }
+    .about-badge { position: absolute; bottom: 16px; right: -16px; background: var(--blue-strong); color: var(--white); font-size: 11px; font-weight: 500; padding: 8px 16px; border-radius: 100px; white-space: nowrap; letter-spacing: 0.3px; border: 2px solid var(--white); }
+    .about-text { position: relative; z-index: 1; }
+    .about-text .section-title { margin-bottom: 1.5rem; }
+    .about-text p { font-size: 15px; color: var(--muted); line-height: 1.85; font-weight: 300; margin-bottom: 1.25rem; }
+    .about-text p strong { color: var(--ink); font-weight: 500; }
+    .about-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+    .about-chip { font-size: 12px; font-weight: 400; color: var(--blue-deep); background: var(--blue-lightest); padding: 5px 14px; border-radius: 100px; border: 1px solid var(--border-strong); }
+
+    /* CONTACT */
+    .contact { background: var(--blue-strong); padding: 7rem 5rem; }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-left .section-tag { color: var(--blue-light); }
+    .contact-left .section-tag::before { background: var(--blue-light); }
+    .contact-left h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px,4vw,52px); font-weight: 600; color: var(--white); letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1rem; }
+    .contact-left p { font-size: 15px; font-weight: 300; color: var(--blue-light); line-height: 1.7; margin-bottom: 1.5rem; }
+    .contact-email { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--white); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 2px; transition: border-color 0.2s; }
+    .contact-email:hover { border-color: var(--white); }
+    .contact-right { background: var(--white); border-radius: 16px; padding: 2rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.3px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; color: var(--ink); background: var(--blue-lightest); border: 1px solid var(--border-strong); border-radius: 10px; padding: 10px 14px; outline: none; transition: border-color 0.2s; resize: none; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--blue-strong); background: var(--white); }
+    .form-group textarea { height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-submit { width: 100%; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; padding: 12px; border-radius: 100px; background: var(--blue-strong); color: var(--white); border: none; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
+    .form-submit:hover { background: var(--blue-deep); }
+
+    /* FOOTER */
+    footer { padding: 2rem 5rem; display: flex; align-items: center; justify-content: space-between; background: var(--blue-darkest); }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--blue-light); text-decoration: none; }
+    .footer-logo span { color: var(--blue-mid); }
+    footer p { font-size: 12px; color: rgba(181,212,244,0.5); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; grid-template-rows: auto; padding: 100px 1.5rem 60px; }
+      .hero-content { grid-column: 1; grid-row: 1; }
+      .hero-visual { display: none; }
+      .hero-stats { grid-column: 1; grid-row: 2; grid-template-columns: 1fr; gap: 1.5rem; }
+      .hero-stat-item { border-right: none; border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: 1.5rem; }
+      .hero-stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+      section { padding: 4rem 1.5rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .case-card { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; gap: 3rem; }
+      .about-visual { display: none; }
+      .about-bg { display: none; }
+      .contact { padding: 4rem 1.5rem; }
+      .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 40px; letter-spacing: -1px; }
+      .stat-num { font-size: 28px; }
+      .section-title { font-size: 28px; }
+      .case-card { padding: 1.5rem; }
+      .contact-right { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">EA<span>.</span>Digital</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact" class="nav-cta">Let's talk</a></li>
+    </ul>
+    <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services" onclick="closeMenu()">Services</a>
+    <a href="#work" onclick="closeMenu()">Work</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#contact" onclick="closeMenu()">Let's talk</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">Online Marketing &amp; Digital Project Management</div>
+      <h1>I connect strategy<br>to <em>execution,</em><br>across industries.</h1>
+      <p class="hero-sub">Helping B2B and B2C businesses grow through strategic paid media, clean data, and digital projects that get delivered. Rigorous, hands-on, and results-focused.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn-primary">See my work</a>
+        <a href="#contact" class="btn-ghost">Get in touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="stat-num">Multi<span>-</span>industry</div>
+          <div class="stat-label">E-commerce, manufacturing &amp; beyond</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="stat-num">B2B <span>&amp;</span> B2C</div>
+          <div class="stat-label">Both sides of the funnel</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="stat-num">All<span>-</span>scale</div>
+          <div class="stat-label">Startups to enterprise</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-svg-wrap">
+        <svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1000" height="1000" fill="#0C447C"/>
+          <rect x="292" y="242" width="208" height="258" fill="#185FA5" stroke="#B5D4F4" stroke-width="8"/>
+          <rect x="500" y="242" width="208" height="258" fill="#378ADD" stroke="#B5D4F4" stroke-width="8"/>
+          <rect x="500" y="500" width="208" height="258" fill="#185FA5" stroke="#B5D4F4" stroke-width="8"/>
+          <rect x="292" y="500" width="208" height="258" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="8"/>
+          <circle cx="396" cy="371" r="54" fill="#042C53" stroke="#B5D4F4" stroke-width="8"/>
+          <path d="M396 427V632H548" stroke="#B5D4F4" stroke-width="8"/>
+          <circle cx="604" cy="629" r="54" fill="#B5D4F4" stroke="#E6F1FB" stroke-width="8"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-tag">What I do</div>
+    <h2 class="section-title">A full-stack digital skillset, built in the field.</h2>
+    <div class="services-grid">
+
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-num">01 <div class="service-toggle">+</div></div>
+          <h3>Paid Media</h3>
+          <p>Google Search, Shopping, Display, META and LinkedIn campaigns across B2C and B2B.</p>
+        </div>
+        <div class="service-expand">
+          <ul>
+            <li>Google Search, Shopping &amp; Display campaign strategy and management</li>
+            <li>META and LinkedIn advertising for B2B lead generation and B2C growth</li>
+            <li>Audience segmentation, targeting, and A/B testing</li>
+            <li>Manual and automated bidding strategies</li>
+            <li>Black Friday and peak season campaign management</li>
+            <li>Budget management at enterprise scale</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-num">02 <div class="service-toggle">+</div></div>
+          <h3>SEO &amp; Search</h3>
+          <p>Organic strategy, technical SEO, and Search Console management for long-term growth.</p>
+        </div>
+        <div class="service-expand">
+          <ul>
+            <li>Organic search strategy across multiple markets</li>
+            <li>Technical SEO audits and implementation</li>
+            <li>Google Search Console setup and monitoring</li>
+            <li>Keyword research and content strategy alignment</li>
+            <li>SEO for both B2B lead generation and B2C e-commerce</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-num">03 <div class="service-toggle">+</div></div>
+          <h3>Tracking &amp; Analytics</h3>
+          <p>GTM, conversion tracking, and reporting dashboards in Looker Studio and Power BI.</p>
+        </div>
+        <div class="service-expand">
+          <ul>
+            <li>Google Tag Manager setup and full tracking implementation</li>
+            <li>Conversion tracking across Google, META, and LinkedIn</li>
+            <li>Looker Studio and Power BI dashboard creation</li>
+            <li>Data layer and event tracking setup</li>
+            <li>Stakeholder reporting and analytics interpretation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-num">04 <div class="service-toggle">+</div></div>
+          <h3>Digital Project Management</h3>
+          <p>Researching digital opportunities and leading transformation projects end-to-end.</p>
+        </div>
+        <div class="service-expand">
+          <ul>
+            <li>Digital opportunity research and tool evaluation</li>
+            <li>Transformation roadmap design and prioritisation</li>
+            <li>Agency and vendor management</li>
+            <li>Budgeting, scoping, and delivery coordination</li>
+            <li>E-commerce and digital product launches</li>
+            <li>AI integration scoping and delivery</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-num">05 <div class="service-toggle">+</div></div>
+          <h3>E-commerce Development</h3>
+          <p>End-to-end support from platform selection through to launch and optimisation.</p>
+        </div>
+        <div class="service-expand">
+          <ul>
+            <li>E-commerce platform research and selection</li>
+            <li>Launch strategy and go-to-market planning</li>
+            <li>Post-launch performance optimisation</li>
+            <li>Integration with marketing and analytics tools</li>
+            <li>Cross-functional coordination across tech and marketing teams</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" onclick="toggleService(this)">
+        <div class="service-header">
+          <div class="service-num">06 <div class="service-toggle">+</div></div>
+          <h3>AI Integration</h3>
+          <p>Scoping and delivering AI projects that create real, measurable business value.</p>
+        </div>
+        <div class="service-expand">
+          <ul>
+            <li>AI opportunity identification and business case development</li>
+            <li>Tool evaluation and vendor selection</li>
+            <li>Integration planning with existing digital infrastructure</li>
+            <li>Project management from pilot to full rollout</li>
+            <li>Change management and internal adoption support</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="work" id="work">
+    <div class="section-tag">Selected work</div>
+    <h2 class="section-title">Experience across industries and disciplines.</h2>
+    <div class="carousel-wrapper">
+      <div class="carousel-track-outer">
+        <div class="carousel-track" id="carouselTrack">
+
+          <div class="case-card">
+            <span class="case-tag">Digital Transformation</span>
+            <h3>From traditional operations to digital ways of working</h3>
+            <div class="case-blocks">
+              <div class="case-block"><h4>Objective</h4><p>Support an organisation in transitioning from legacy, manual processes to modern digital operations — covering tooling, e-commerce, and AI-powered workflows.</p></div>
+              <div class="case-block"><h4>Execution</h4><p>Led the scoping and delivery of digital tools, an e-commerce platform, and AI integrations. Coordinated across internal stakeholders, developers, and external agencies.</p></div>
+            </div>
+            <div class="case-outcome"><h4>Outcome</h4><p>Structured, phased digital transformation with measurable improvements in operational efficiency and digital capability.</p></div>
+          </div>
+
+          <div class="case-card">
+            <span class="case-tag">Digital Growth</span>
+            <h3>Paid media management at enterprise scale</h3>
+            <div class="case-blocks">
+              <div class="case-block"><h4>Objective</h4><p>Drive online revenue growth for a major Nordic e-commerce brand through multi-platform paid media, with full ownership of Black Friday campaigns.</p></div>
+              <div class="case-block"><h4>Execution</h4><p>Managed daily budgets in the six-figure SEK range across Google Search, Shopping, Display and META. Led two consecutive Black Friday campaigns with real-time optimisation.</p></div>
+            </div>
+            <div class="case-outcome"><h4>Outcome</h4><p>Consistently met and exceeded revenue targets during peak periods at a scale few independent consultants have direct experience with.</p></div>
+          </div>
+
+          <div class="case-card">
+            <span class="case-tag">B2B Lead Generation</span>
+            <h3>Paid media audit and rebuild for a global B2B brand</h3>
+            <div class="case-blocks">
+              <div class="case-block"><h4>Objective</h4><p>Improve the efficiency and quality of B2B lead generation through paid search, while reducing wasted ad spend identified in a full campaign audit.</p></div>
+              <div class="case-block"><h4>Execution</h4><p>Rebuilt campaigns from scratch, implemented new GTM conversion tracking, and set up Looker Studio dashboards for stakeholder pipeline visibility.</p></div>
+            </div>
+            <div class="case-outcome"><h4>Outcome</h4><p>Significant reduction in wasted budget with improved conversion rate — more qualified leads at a lower cost per acquisition.</p></div>
+          </div>
+
+          <div class="case-card">
+            <span class="case-tag">SEO &amp; Organic Growth</span>
+            <h3>Organic search strategy across B2B markets</h3>
+            <div class="case-blocks">
+              <div class="case-block"><h4>Objective</h4><p>Build sustainable organic search visibility for a B2B brand across multiple European markets, reducing long-term reliance on paid channels.</p></div>
+              <div class="case-block"><h4>Execution</h4><p>Technical SEO audit and fixes, Search Console monitoring, and coordination with content and development teams to embed SEO into every site change.</p></div>
+            </div>
+            <div class="case-outcome"><h4>Outcome</h4><p>Improved organic rankings across target markets with cleaner technical foundations supporting long-term search performance.</p></div>
+          </div>
+
+          <div class="case-card">
+            <span class="case-tag">Digital Analytics</span>
+            <h3>Tracking infrastructure and executive reporting dashboards</h3>
+            <div class="case-blocks">
+              <div class="case-block"><h4>Objective</h4><p>Build a reliable end-to-end tracking setup and reporting infrastructure giving stakeholders clear, actionable visibility into digital performance.</p></div>
+              <div class="case-block"><h4>Execution</h4><p>Implemented GTM from scratch, set up conversion events across Google and META, and built Looker Studio and Power BI dashboards connected to live data.</p></div>
+            </div>
+            <div class="case-outcome"><h4>Outcome</h4><p>Full tracking coverage from zero. Stakeholders gained real-time visibility into campaign performance and channel attribution for the first time.</p></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <div class="carousel-dots" id="carouselDots"></div>
+        <div class="carousel-btns">
+          <button class="carousel-btn" id="prevBtn" onclick="moveCarousel(-1)">&#8592;</button>
+          <button class="carousel-btn" id="nextBtn" onclick="moveCarousel(1)">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-bg">
+      <svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1000" height="1000" fill="#0C447C"/>
+        <rect x="242" y="246" width="258" height="258" fill="#185FA5" stroke="#B5D4F4" stroke-width="8"/>
+        <rect x="500" y="246" width="258" height="258" fill="#378ADD" stroke="#B5D4F4" stroke-width="8"/>
+        <rect x="500" y="504" width="258" height="258" fill="#185FA5" stroke="#B5D4F4" stroke-width="8"/>
+        <rect x="242" y="504" width="258" height="258" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="8"/>
+        <rect x="342" y="504" width="158" height="258" fill="#378ADD" stroke="#B5D4F4" stroke-width="8"/>
+        <rect x="342" y="246" width="158" height="258" fill="#B5D4F4" stroke="#B5D4F4" stroke-width="8"/>
+        <rect x="496" y="200" width="8" height="600" fill="#B5D4F4"/>
+        <rect x="800" y="500" width="8" height="600" transform="rotate(90 800 500)" fill="#B5D4F4"/>
+        <path d="M708 504V508C708 534.79 702.724 561.317 692.472 586.067C682.22 610.818 667.193 633.307 648.25 652.25C629.307 671.193 606.818 686.22 582.067 696.472C557.317 706.724 530.79 712 504 712H500V504H708Z" fill="#042C53" stroke="#B5D4F4" stroke-width="8"/>
+        <path d="M500 296H504C530.79 296 557.317 301.276 582.067 311.528C606.818 321.78 629.307 336.807 648.25 355.75C667.193 374.693 682.22 397.182 692.472 421.933C702.724 446.683 708 473.21 708 500V504H500V296Z" fill="#378ADD" stroke="#B5D4F4" stroke-width="8"/>
+        <path d="M327 250C382.41 250 428.666 289.19 439.565 341.363C434.838 340.771 430.021 340.466 425.133 340.466C361.62 340.466 310.133 391.953 310.133 455.466C310.133 463.567 310.973 471.472 312.566 479.101C255.867 472.001 212 423.624 212 365C212 301.488 263.488 250 327 250Z" fill="#185FA5" stroke="#B5D4F4" stroke-width="4"/>
+        <path d="M425.133 340.465C430.021 340.465 434.838 340.77 439.565 341.362C441.159 348.991 441.999 356.897 441.999 364.999C441.999 428.511 390.512 479.998 327 479.998C322.112 479.998 317.294 479.692 312.566 479.1C310.973 471.471 310.133 463.566 310.133 455.465C310.133 391.952 361.62 340.465 425.133 340.465Z" fill="#B5D4F4" stroke="#E6F1FB" stroke-width="4"/>
+      </svg>
+    </div>
+    <div class="about-visual">
+      <div class="about-ring"><div class="about-dot"></div></div>
+      <div class="about-circle">
+        <div class="about-initials">EA</div>
+        <div class="about-badge">Malmö, Sweden</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-tag">About</div>
+      <h2 class="section-title">Fluent in both marketing and tech.</h2>
+      <p>Hi, I'm Endang — the person behind EA Digital. I help businesses grow through <strong>marketing expertise and hands-on project delivery.</strong> With experience across industries in both B2B and B2C, my work spans digital marketing growth, analytics, and strategy.</p>
+      <p>My approach bridges marketing and technology — which means less gets lost in translation between the boardroom, the agency, and the development team. Whether running a campaign or leading a digital product from brief to launch, the focus stays on outcomes.</p>
+      <p>Based in Malmö, working with clients across Sweden and internationally.</p>
+      <div class="about-chips">
+        <span class="about-chip">Google Ads</span>
+        <span class="about-chip">META Ads</span>
+        <span class="about-chip">LinkedIn Ads</span>
+        <span class="about-chip">SEO</span>
+        <span class="about-chip">GTM</span>
+        <span class="about-chip">Looker Studio</span>
+        <span class="about-chip">Power BI</span>
+        <span class="about-chip">E-commerce</span>
+        <span class="about-chip">AI Integration</span>
+        <span class="about-chip">Digital PM</span>
+        <span class="about-chip">B2B &amp; B2C</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div class="section-tag">Get in touch</div>
+        <h2>Let's build something together.</h2>
+        <p>Available for freelance projects and consulting engagements, both short-term and ongoing. Whether you need someone to run your campaigns, fix your tracking, or lead a digital project from start to finish, get in touch.</p>
+        <a href="mailto:hello@eadigital.se" class="contact-email">hello@eadigital.se →</a>
+      </div>
+      <div class="contact-right">
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First name</label>
+              <input type="text" placeholder="Jane" required />
+            </div>
+            <div class="form-group">
+              <label>Last name</label>
+              <input type="text" placeholder="Smith" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email address</label>
+            <input type="email" placeholder="jane@company.com" required />
+          </div>
+          <div class="form-group">
+            <label>What can I help with?</label>
+            <select>
+              <option value="">Select a service...</option>
+              <option>Paid Media</option>
+              <option>SEO &amp; Search</option>
+              <option>Tracking &amp; Analytics</option>
+              <option>Digital Project Management</option>
+              <option>E-commerce Development</option>
+              <option>AI Integration</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell me about your project</label>
+            <textarea placeholder="A brief overview of what you are working on..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="footer-logo">EA<span>.</span>Digital</a>
+    <p>&copy; 2026 EA Digital &mdash; eadigital.se</p>
+    <p>Malmö, Sweden</p>
+  </footer>
+
+  <script>
+    // Burger menu
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    function closeMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+
+    // Services toggle
+    function toggleService(card) {
+      const isOpen = card.classList.contains('open');
+      document.querySelectorAll('.service-card.open').forEach(c => c.classList.remove('open'));
+      if (!isOpen) card.classList.add('open');
+    }
+
+    // Carousel
+    const track = document.getElementById('carouselTrack');
+    const dotsContainer = document.getElementById('carouselDots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const cards = track.querySelectorAll('.case-card');
+    const total = cards.length;
+    const visible = 1;
+    const maxIndex = total - visible;
+    let current = 0;
+
+    function buildDots() {
+      for (let i = 0; i <= maxIndex; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.onclick = () => goTo(i);
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function updateCarousel() {
+      const cardWidth = cards[0].offsetWidth + 20;
+      track.style.transform = 'translateX(-' + (current * (cards[0].offsetWidth + 20)) + 'px)';
+      dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === maxIndex;
+    }
+
+    function goTo(index) {
+      current = Math.max(0, Math.min(index, maxIndex));
+      updateCarousel();
+    }
+
+    function moveCarousel(dir) { goTo(current + dir); }
+
+    buildDots();
+    updateCarousel();
+    window.addEventListener('resize', updateCarousel);
+
+    // Auto-play
+    let autoPlay = setInterval(() => goTo(current === maxIndex ? 0 : current + 1), 4000);
+    const wrapper = document.querySelector('.carousel-track-outer');
+    wrapper.addEventListener('mouseenter', () => clearInterval(autoPlay));
+    wrapper.addEventListener('mouseleave', () => {
+      clearInterval(autoPlay);
+      autoPlay = setInterval(() => goTo(current === maxIndex ? 0 : current + 1), 4000);
+    });
+
+    // Contact form
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Message sent!';
+      btn.style.background = '#0C447C';
+      setTimeout(() => { btn.textContent = 'Send message'; btn.style.background = ''; }, 3000);
+    }
+  </script>
+
+</body>
+</html>
